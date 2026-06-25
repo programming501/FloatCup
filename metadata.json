@@ -1,0 +1,6 @@
+{
+  "name": "World Cup 2026 Undercurrents Matrix",
+  "description": "Interactive 3D narrative scroll-driven experience and advanced sports analytics dashboard detailing squad performance anomalies (expected goals vs actual goals) and national playstyle archetypes for the 2026 FIFA World Cup.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
