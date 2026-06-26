@@ -18,6 +18,29 @@ export interface TeamMetrics {
   structural_risk: number;      // Structural Risk (Goals conceded via direct transitions/counters, 0-100)
 }
 
+export interface TeamAnalytics {
+  tacticalIdentity: string;
+  winProbability: number;
+  teamEfficiency: number;
+  defensiveSolidity: number;
+  radarMetrics: {
+    controlIndex: number;
+    attackingVolume: number;
+    pressingIntensity: number;
+    passingFluidity: number;
+    structuralRisk: number;
+  };
+  insights: {
+    mostClinicalFinisher: string;
+    breakthroughCandidate: string;
+    creativeHub: string;
+    tacticalRisk: string;
+  };
+  storyline: string;
+  strength: string;
+  weakness: string;
+}
+
 export interface TeamData {
   id: string; // e.g. "ARG"
   country: string;
@@ -27,6 +50,7 @@ export interface TeamData {
   secondaryColor: string; // High-contrast accent color
   metrics: TeamMetrics;
   players: Player[];
+  analytics: TeamAnalytics;
 }
 
 export type AppPhase = 'SCROLL_JOURNEY' | 'GOAL_ANIMATION' | 'DASHBOARD';

@@ -725,11 +725,16 @@ export default function ThreeCanvas({
 
     // Track smooth interpolated scroll progress for momentum-based ball movement
     let currentScroll = scrollProgressRef.current;
+    let lastScroll = currentScroll;
 
     // 10. Frame Loop
     const tick = () => {
       // Smoothly interpolate current scroll progress towards target scroll position
       currentScroll = THREE.MathUtils.lerp(currentScroll, scrollProgressRef.current, 0.07);
+
+      // Track scroll delta to simulate physical rolling/motion of the football as we scroll
+      const scrollDelta = currentScroll - lastScroll;
+      lastScroll = currentScroll;
 
       // Smoothly update mouse coordinates
       currentMouse.x = THREE.MathUtils.lerp(currentMouse.x, targetMouse.x, 0.06);
@@ -738,14 +743,18 @@ export default function ThreeCanvas({
       // Rotation animations
       if (footballGroup) {
         if (!shootAnimRef.current.active) {
-          // Rotate along with mouse drift to feel interactive
-          footballGroup.rotation.y += 0.006 + (currentMouse.x * 0.005);
-          footballGroup.rotation.x += 0.003 - (currentMouse.y * 0.003);
+          // Dynamic rolling spin based on scroll velocity (feels physically coupled to ribbon travel)
+          footballGroup.rotation.x += scrollDelta * 3.2;
+          footballGroup.rotation.y += scrollDelta * 2.2;
+
+          // Continuous slow orbital spin & mouse interaction drift (feels active even when static)
+          footballGroup.rotation.y += 0.008 + (currentMouse.x * 0.007);
+          footballGroup.rotation.x += 0.004 - (currentMouse.y * 0.004);
         } else {
           // High speed spinning for shot animation
-          footballGroup.rotation.y += 0.06;
-          footballGroup.rotation.x += 0.04;
-          footballGroup.rotation.z += 0.05;
+          footballGroup.rotation.y += 0.18;
+          footballGroup.rotation.x += 0.15;
+          footballGroup.rotation.z += 0.08;
         }
       }
 
@@ -797,15 +806,20 @@ export default function ThreeCanvas({
           const driftX = currentMouse.x * 2.5;
           const driftY = currentMouse.y * 1.8;
 
-          // Smoothly interpolate (lerp) current position towards scroll target + drift position
+          // Organic deep-space bobbing/floating oscillation (feels continuous and atmospheric)
+          const floatTime = Date.now() * 0.0016;
+          const floatY = Math.sin(floatTime) * 0.22;
+          const floatX = Math.cos(floatTime * 0.8) * 0.15;
+
+          // Smoothly interpolate (lerp) current position towards scroll target + drift + floating offset
           footballGroup.position.x = THREE.MathUtils.lerp(
             footballGroup.position.x,
-            targetPos.x + driftX,
+            targetPos.x + driftX + floatX,
             0.1
           );
           footballGroup.position.y = THREE.MathUtils.lerp(
             footballGroup.position.y,
-            targetPos.y + driftY,
+            targetPos.y + driftY + floatY,
             0.1
           );
           footballGroup.position.z = THREE.MathUtils.lerp(

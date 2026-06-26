@@ -3,7 +3,7 @@ import { TEAMS_LIST, WORLD_CUP_DATA } from './data/world_cup_data';
 import { AppPhase } from './types';
 import ThreeCanvas from './components/ThreeCanvas';
 import Dashboard from './components/Dashboard';
-import { ChevronDown, Zap, Shield, Target, Award, Play, AlertTriangle } from 'lucide-react';
+import { Zap } from 'lucide-react';
 
 export default function App() {
   const [phase, setPhase] = useState<AppPhase>('SCROLL_JOURNEY');
@@ -278,70 +278,12 @@ export default function App() {
                       style={{ backgroundColor: team.color }}
                     />
 
-                    {/* Top corner Index badge */}
-                    <span className="absolute top-4 right-6 text-2xl font-mono text-slate-800 font-black">
-                      0{idx + 1}
-                    </span>
-
                     {/* Team Identification */}
-                    <div className="space-y-1 mb-5">
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-3xl select-none">{team.flag}</span>
-                        <h2 className="text-2xl font-bold tracking-tight text-white font-sans">
-                          {team.country}
-                        </h2>
-                      </div>
-                      <p className="text-[10px] font-mono text-slate-500 tracking-widest uppercase">
-                        SQUAD PROFILE // SECTOR_CODE: {team.id}
-                      </p>
-                    </div>
-
-                    {/* Brief Tactical evaluation snippet */}
-                    <p className="text-xs md:text-sm text-slate-400 font-sans leading-relaxed mb-6">
-                      {team.summary}
-                    </p>
-
-                    {/* Mini Playstyle Meter Bars */}
-                    <div className="space-y-3 mb-8">
-                      {/* Meter 1: Control (Possession) */}
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-[9px] font-mono">
-                          <span className="text-slate-500 uppercase font-bold flex items-center gap-1">
-                            <Shield className="w-3 h-3 text-cyan-400" />
-                            Control Ratio (Possession %)
-                          </span>
-                          <span className="text-slate-300 font-bold">{team.metrics.possession_avg}%</span>
-                        </div>
-                        <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000"
-                            style={{
-                              width: `${team.metrics.possession_avg}%`,
-                              backgroundColor: team.color,
-                            }}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Meter 2: Danger (Structural Risk) */}
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-[9px] font-mono">
-                          <span className="text-slate-500 uppercase font-bold flex items-center gap-1">
-                            <AlertTriangle className="w-3 h-3 text-amber-500" />
-                            Transitional Exposure (Risk)
-                          </span>
-                          <span className="text-slate-300 font-bold">{team.metrics.structural_risk}%</span>
-                        </div>
-                        <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000"
-                            style={{
-                              width: `${team.metrics.structural_risk}%`,
-                              backgroundColor: team.secondaryColor,
-                            }}
-                          />
-                        </div>
-                      </div>
+                    <div className="flex items-center gap-3 mb-6">
+                      <span className="text-3xl select-none">{team.flag}</span>
+                      <h2 className="text-2xl font-bold tracking-tight text-white font-sans">
+                        {team.country}
+                      </h2>
                     </div>
 
                     {/* Core CTA Diagnostic Trigger Button */}
